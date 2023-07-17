@@ -34,7 +34,7 @@ export const App = () => {
         setisLoading(true);
         const { hits, totalHits } = await getImages(query, page);
         setPictures(prev => [...prev, ...hits]);
-        setshowBtn(page < Math.ceil(totalHits / 15));
+        setshowBtn(page < Math.ceil(totalHits / 12));
       } catch (error) {
         console.log(error.message);
       } finally {

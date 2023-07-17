@@ -1,20 +1,20 @@
-import { useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
 import propTypes from 'prop-types';
 
 export const Modal = ({ url, offModal }) => {
-  const closeByEsc = useCallback(
-    event => {
-      if (event.key === 'Escape') {
-        offModal('');
-      }
-    },
-    [offModal]
-  );
+  const closeByEsc = event => {
+    if (event.key === 'Escape') {
+      offModal('');
+    }
+  };
 
   useEffect(() => {
-    document.addEventListener('keydown', closeByEsc);
-    return () => document.removeEventListener('keydown', closeByEsc);
-  }, [closeByEsc]);
+    const handleKeyDown = event => closeByEsc(event);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [offModal]);
 
   const closeBackdrop = event => {
     if (event.target === event.currentTarget) {
