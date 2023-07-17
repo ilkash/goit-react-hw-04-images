@@ -1,16 +1,17 @@
 import React, { useEffect } from 'react';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 export const Modal = ({ url, offModal }) => {
-  const closeByEsc = event => {
-    if (event.key === 'Escape') {
-      offModal('');
-    }
-  };
-
   useEffect(() => {
+    const closeByEsc = event => {
+      if (event.key === 'Escape') {
+        offModal('');
+      }
+    };
+
     const handleKeyDown = event => closeByEsc(event);
     document.addEventListener('keydown', handleKeyDown);
+
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
@@ -32,6 +33,6 @@ export const Modal = ({ url, offModal }) => {
 };
 
 Modal.propTypes = {
-  url: propTypes.string,
-  tag: propTypes.string,
+  url: PropTypes.string,
+  offModal: PropTypes.func.isRequired,
 };
